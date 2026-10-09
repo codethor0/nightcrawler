@@ -24,6 +24,13 @@ SECRETS={
 def need(ok,msg):
     if not ok:raise SystemExit('FAIL: '+msg)
 
+def check_requirements(text):
+    pins=[l for l in text.splitlines() if l.strip() and not l.lstrip().startswith('#')]
+    need(bool(pins),'requirements-ci.txt has no pinned dependency')
+    for line in pins:
+        need(bool(re.match(r'^[A-Za-z0-9_.-]+==[0-9][A-Za-z0-9_.+!-]*\s',line)),'dependency is not pinned with ==: '+line)
+        need(bool(re.search(r'--hash=sha256:[0-9a-f]{64}(?:\s|$)',line)),'dependency lacks a sha256 wheel hash: '+line)
+
 def main():
     found=[]
     for p in ROOT.rglob('*'):
@@ -50,7 +57,7 @@ def main():
     need('persist-credentials: false' in workflow,'checkout retains credentials')
     need('pull_request_target' not in workflow,'unsafe privileged workflow event')
     need('--require-hashes --only-binary=:all:' in workflow, 'dependency install must use immutable wheel hash')
-    need('--hash=sha256:d47fbf302e7d9cbbb9e2555a0d267983d2aa476bac30e90dfbe5669bd57f3762' in (ROOT/'requirements-ci.txt').read_text(), 'missing verified PyPI wheel hash')
+    check_requirements((ROOT/'requirements-ci.txt').read_text())
     need('cron:' in workflow and 'workflow_dispatch:' in workflow,'missing scheduled/manual CI')
     uses=[]
     for line in workflow.splitlines():
