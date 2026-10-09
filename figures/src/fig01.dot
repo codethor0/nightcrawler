@@ -1,0 +1,13 @@
+digraph G {
+ graph [rankdir=TB, bgcolor=white, nodesep=.25, ranksep=.38, pad=.08, fontname="DejaVu Sans", dpi=180];
+ node [shape=box, style="rounded", color=black, fontname="DejaVu Sans", fontsize=16, margin=".18,.11", width=5.8, penwidth=1.1];
+ edge [color=black, arrowsize=.7, fontsize=12];
+ a [label="1  Terminate origin and enforce fence\nPrevent new issue / modify / delegate effects"];
+ b [label="2  Reconstruct authority independently\nManaged issuer census + histories (C0)"];
+ c [label="3  Derive provider scope and enumerate\nObjects (C4a), authorship (C4b), deliveries (C4c)"];
+ d [label="4  Build Residual Execution Graph\nRetain uncertain candidates; analyze future paths"];
+ e [label="5  Plan and execute guarded remediation\nEvidence thresholds, invariants, provider barriers"];
+ f [label="6  Re-observe and attest\nC0-C9 with C4a-C4c; sign bounded receipt", peripheries=2];
+ a -> b -> c -> d -> e -> f;
+ f -> c [style=dashed, constraint=false, label="repeat discovery when needed"];
+}

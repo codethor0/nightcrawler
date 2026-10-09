@@ -1,0 +1,27 @@
+digraph G {
+  graph [rankdir=TB, fontname="DejaVu Sans", fontsize=10, nodesep=0.5, ranksep=0.32, pad=0.2, bgcolor=white, newrank=true];
+  node  [fontname="DejaVu Sans", fontsize=9.5, shape=box, style=rounded, penwidth=1.1, margin="0.12,0.05", width=2.6];
+  edge  [dir=back, arrowtail=none, penwidth=1.0];
+
+  A  [label=<<B>A</B>  independently signed receipt<BR/><FONT POINT-SIZE="8">cryptographic execution or provenance record</FONT>>];
+  B  [label=<<B>B</B>  provider-immutable audit event<BR/><FONT POINT-SIZE="8">not writable by any identity in Auth*(q)</FONT>>];
+  C1 [label=<<B>C<SUB>1</SUB></B>  provider object metadata<BR/><FONT POINT-SIZE="8">creator, create time, owner reference</FONT>>, width=2.2];
+  C2 [label=<<B>C<SUB>2</SUB></B>  cross-source corroboration<BR/><FONT POINT-SIZE="8">two independent sources agree</FONT>>, width=2.2];
+  D  [label=<<B>D</B>  temporal or heuristic correlation<BR/><FONT POINT-SIZE="8">timing, naming, payload similarity</FONT>>];
+  E  [label=<<B>E</B>  agent-writable self-assertion<BR/><FONT POINT-SIZE="8">logs or tags q could edit or delete</FONT>>];
+
+  A -> B; B -> C1; B -> C2; C1 -> D; C2 -> D; D -> E;
+  inc [shape=plaintext, label=<<FONT POINT-SIZE="8"><I>C<SUB>1</SUB> and C<SUB>2</SUB> are incomparable</I></FONT>>, width=0.1];
+  {rank=same; C1; inc; C2}
+  C1 -> inc -> C2 [style=invis];
+
+  ea [shape=plaintext, width=0.1, label=<<FONT POINT-SIZE="9"><B>e<SUB>a</SUB> = B</B><BR/>automatic action requires<BR/>η(e) ≽ e<SUB>a</SUB> on every edge</FONT>>];
+  ev [shape=plaintext, width=0.1, label=<<FONT POINT-SIZE="9"><B>e<SUB>v</SUB> = D</B><BR/>verification keeps every edge<BR/>with ¬(η(e) ≺ e<SUB>v</SUB>)</FONT>>];
+  {rank=same; B; ea}
+  {rank=same; D; ev}
+  B -> ea [style=dotted, dir=none];
+  D -> ev [style=dotted, dir=none];
+  note [shape=plaintext, width=0.1, label=<<FONT POINT-SIZE="8">Tier-E-only artifacts are not lost: provider-recorded creator<BR/>membership in Auth*(q) places them in U(q) (Section 4.3).</FONT>>];
+  {rank=same; E; note}
+  E -> note [style=invis];
+}

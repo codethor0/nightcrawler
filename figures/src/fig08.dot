@@ -1,0 +1,12 @@
+digraph G {
+ graph [rankdir=TB, bgcolor=white, fontname="Times-Roman", fontsize=17, nodesep=.35, ranksep=.4, pad=.25];
+ node [shape=box, style=rounded, fontname="Times-Roman", fontsize=14, penwidth=1.1, margin=".19,.13"];
+ edge [color=black, arrowsize=.6];
+ a [label="Authority boundary and effective fence\nC0, C1 | acquired secrets, late identity, external issuer"];
+ b [label="Historical carrier and evidence completeness\nC4b, C4c, C9 | consumed trigger, tampered log, delivery"];
+ c [label="Prospective effects and safe intervention\nC6, C8 | delayed child, generation, memory, clock"];
+ d [label="Coverage, egress and receipt admission\nC2, C3, C7 | unsupported provider, outside copy", peripheries=2];
+ a -> b -> c -> d;
+ note [shape=note, fontsize=12, label="These are safety obligations, not measured attack prevention rates.\nThe text in Section 9 lists the individual counterexamples."];
+ d -> note [style=dotted, arrowhead=none];
+}

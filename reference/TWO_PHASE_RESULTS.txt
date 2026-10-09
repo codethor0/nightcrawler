@@ -1,0 +1,17 @@
+PASS historical fired trigger -> delayed child  state=BOUNDED       C0=True C1=True C4b=True C6=False
+PASS confirmed surviving delayed child          state=FAILED        C0=True C1=True C4b=True C6=False
+PASS missing historical handoff cannot COMPLETE state=BOUNDED       C0=True C1=True C4b=False C6=True
+PASS verified no survivor can COMPLETE          state=COMPLETE      C0=True C1=True C4b=True C6=True
+PASS uncovered static-secret read blocks C0     state=INDETERMINATE C0=False C1=True C4b=True C6=True
+PASS mailbox recovery without factor log        state=INDETERMINATE C0=False C1=True C4b=True C6=True
+PASS newly discovered identity not yet fenced   state=INDETERMINATE C0=True C1=False C4b=True C6=True
+PASS late identity fenced before resnapshot     state=COMPLETE      C0=True C1=True C4b=True C6=True
+PASS independent evidence digest disagreement   state=INDETERMINATE C0=True C1=True C4b=True C6=True
+PASS partner without adapter fails C2 and C3    state=BOUNDED       C0=True C1=True C4b=True C6=True
+PASS C4c coverage TRUE C7 egress FALSE          state=BOUNDED       C0=True C1=True C4b=True C6=True
+PASS unbounded provider clock forbids COMPLETE  state=INDETERMINATE C0=True C1=True C4b=True C6=True
+PASS uncovered issuer history cannot COMPLETE   state=INDETERMINATE C0=False C1=True C4b=True C6=True
+PASS missing accepting trust provenance         state=INDETERMINATE C0=False C1=True C4b=True C6=True
+PASS unknown barrier cannot COMPLETE            state=INDETERMINATE C0=True C1=True C4b=True C6=True
+PASS remediation minimum feasible cost=4 actions=m1,m3,m6 (m1 disables entire workflow)
+ALL 16 TARGETED TESTS PASS (modeled evidence contracts; no real-provider safety claim)

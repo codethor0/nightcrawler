@@ -1,0 +1,31 @@
+digraph G {
+ graph [rankdir=TB, fontname="DejaVu Sans", fontsize=12, nodesep=0.36, ranksep=0.5, pad=0.18, bgcolor=white];
+ node [fontname="DejaVu Sans", fontsize=12, shape=box, style="rounded", penwidth=1.1, margin="0.16,0.11", width=3.8];
+ edge [fontname="DejaVu Sans", fontsize=10.5, arrowsize=0.7, penwidth=1.0];
+ subgraph cluster_d {
+  label="DISCOVERY | read-only credentials"; fontsize=13; style=dashed; labelloc=t;
+  census [label="IssuerHistory + accepting-trust census\nC0 authority sources and provenance"];
+  inspect [label="Inventory + Enumerate\nobjects / author history / deliveries\nC2 and C4a / C4b / C4c"];
+  census -> inspect;
+ }
+ subgraph cluster_a {
+  label="ANALYSIS | no provider credentials"; fontsize=13; style=dashed; labelloc=t;
+  normalize [label="Normalize + historical carrier graph\nfuture guards and GenH paths"];
+  plan [label="Plan intervention + approval gate\npreconditions, safe actions, invariants"];
+  normalize -> plan;
+ }
+ subgraph cluster_x {
+  label="EXECUTION | scoped action credentials"; fontsize=13; style=dashed; labelloc=t;
+  execute [label="Execute approved action\nshort-lived credential / precondition digest"];
+  barrier [label="Provider barrier\nstrong, bounded, or unknown"];
+  execute -> barrier;
+ }
+ subgraph cluster_s {
+  label="ATTESTATION | isolated signing key"; fontsize=13; style=dashed; labelloc=t;
+  attest [label="Validate evidence, C0-C9, and receipt digest\nsign only qualified state"];
+ }
+ inspect -> normalize;
+ plan -> execute;
+ barrier -> attest;
+ barrier -> inspect [constraint=false, style=dashed, label="re-observe"];
+}

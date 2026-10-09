@@ -1,0 +1,25 @@
+digraph G {
+  graph [rankdir=TB, bgcolor="white", fontname="Times-Roman", fontsize=15, nodesep=.35, ranksep=.65, pad=.25];
+  node [shape=box, style=rounded, fontname="Times-Roman", fontsize=14, color=black, margin=".20,.12"];
+  edge [fontname="Times-Roman", fontsize=12, color=black, arrowsize=.7];
+
+  subgraph cluster_past {
+    label="PHASE 1  Historical causation (already happened)"; style=dashed; color=black;
+    q [label="Agent q creates a one-shot trigger\n00:30", shape=box];
+    t [label="Trigger executes\n01:00 (consumed)"];
+    m [label="Provider creates delayed message M\n01:00; delivery due 04:00", penwidth=2];
+    q -> t [label="created / B"];
+    t -> m [label="historical generation / C1"];
+  }
+  s [label="Snapshot at 02:00\nM still exists", shape=box, penwidth=2];
+  subgraph cluster_future {
+    label="PHASE 2  Prospective effect (not yet happened)"; style=dashed; color=black;
+    run [label="M delivery at 04:00\nfuture guard is LIVE"];
+    f [label="Prohibited effect F\nwithin receipt window", shape=doubleoctagon];
+    run -> f [label="activates"];
+  }
+  m -> s [label="surviving carrier enters R(q)"];
+  s -> run [label="future activation only"];
+  foot [shape=note, fontsize=12, label="Past trigger cannot fire again.\nThat does NOT erase M.\nC6 must reject COMPLETE."];
+  foot -> s [style=dotted, arrowhead=none, constraint=false];
+}

@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+message: "Please cite the preprint; the Zenodo DOI will be added after its public registration."
+title: "NIGHTCRAWLER: Research Artifacts and Reproducibility"
+type: software
+authors:
+  - family-names: "Thor"
+    given-names: "Thor"
+    affiliation: "Independent Open-Source Researcher"
+    orcid: "https://orcid.org/0009-0001-6573-385X"
+url: "https://github.com/codethor0/nightcrawler"
+keywords:
+  - autonomous-agents
+  - cybersecurity
+  - formal-methods
+  - residual-causation
+  - reproducible-research
+preferred-citation:
+  type: generic
+  title: "NIGHTCRAWLER: Temporal Causal Closure for Persistent and Deferred Effects of Autonomous AI Agents"
+  authors:
+    - family-names: "Thor"
+      given-names: "Thor"
+      affiliation: "Independent Open-Source Researcher"
+      orcid: "https://orcid.org/0009-0001-6573-385X"
+  year: 2026
+  month: 10
+  day: 9

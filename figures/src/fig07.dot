@@ -1,0 +1,23 @@
+digraph G {
+ graph [rankdir=TB, fontname="DejaVu Sans", fontsize=12, nodesep=0.4, ranksep=0.47, pad=0.18, bgcolor=white];
+ node [fontname="DejaVu Sans", fontsize=12, shape=box, style="rounded", penwidth=1.1, margin="0.18,0.10"];
+ edge [fontname="DejaVu Sans", fontsize=11, arrowsize=0.65, penwidth=1.1];
+ start [label="Final barrier-backed\nre-observation round"];
+ haspath [shape=diamond, style="", label="Confirmed-live\nprohibited path?", margin="0.07,0.06"];
+ failed [shape=doubleoctagon, style="", label="FAILED"];
+ checked [shape=diamond, style="", label="All 12 atomic\nchecks TRUE?", margin="0.07,0.06"];
+ complete [shape=doubleoctagon, style="", label="COMPLETE"];
+ gap [shape=diamond, style="", label="Every FALSE / UNKNOWN\ngap enumerated?", margin="0.07,0.06"];
+ bounded [shape=doubleoctagon, style="", label="BOUNDED"];
+ unknown [shape=doubleoctagon, style="", label="INDETERMINATE"];
+ start -> haspath;
+ haspath -> failed [label="yes"];
+ haspath -> checked [label="no"];
+ checked -> complete [label="yes"];
+ checked -> gap [label="no"];
+ gap -> bounded [label="yes"];
+ gap -> unknown [label="no"];
+ {rank=same; haspath;failed}
+ {rank=same; checked;complete}
+ {rank=same; bounded;unknown}
+}

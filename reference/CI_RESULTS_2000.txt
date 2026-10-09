@@ -1,0 +1,12 @@
+unit checks: pass
+full model     states={'BOUNDED': 498, 'COMPLETE': 16, 'FAILED': 780, 'INDETERMINATE': 706} false_COMPLETE=0
+no_C0          states={'BOUNDED': 498, 'COMPLETE': 19, 'FAILED': 780, 'INDETERMINATE': 703} false_COMPLETE=2
+no_U           states={'BOUNDED': 492, 'COMPLETE': 25, 'FAILED': 776, 'INDETERMINATE': 707} false_COMPLETE=9
+no_C4b         states={'BOUNDED': 496, 'COMPLETE': 18, 'FAILED': 780, 'INDETERMINATE': 706} false_COMPLETE=0
+no_fence       states={'BOUNDED': 498, 'COMPLETE': 19, 'FAILED': 780, 'INDETERMINATE': 703} false_COMPLETE=3
+no_barrier     states={'BOUNDED': 493, 'COMPLETE': 21, 'FAILED': 780, 'INDETERMINATE': 706} false_COMPLETE=2
+no_C8          states={'BOUNDED': 489, 'COMPLETE': 25, 'FAILED': 780, 'INDETERMINATE': 706} false_COMPLETE=0
+no_clk_margin  states={'BOUNDED': 494, 'COMPLETE': 20, 'FAILED': 780, 'INDETERMINATE': 706} false_COMPLETE=0
+heuristic_C4a  states={'BOUNDED': 484, 'COMPLETE': 30, 'FAILED': 780, 'INDETERMINATE': 706} false_COMPLETE=6
+no_C9          states={'BOUNDED': 498, 'COMPLETE': 45, 'FAILED': 780, 'INDETERMINATE': 677} false_COMPLETE=12
+no_gen         states={'BOUNDED': 498, 'COMPLETE': 16, 'FAILED': 780, 'INDETERMINATE': 706} false_COMPLETE=0

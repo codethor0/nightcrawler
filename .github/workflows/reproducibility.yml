@@ -1,0 +1,81 @@
+name: Reproducibility
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    - cron: "31 14 * * 1"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: reproducibility-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: verify
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # pinned full SHA
+        with:
+          persist-credentials: false
+
+      - name: Prepare pinned reference dependency
+        run: |
+          set -euo pipefail
+          python3 -m venv .venv
+          .venv/bin/python -m pip install --disable-pip-version-check --require-hashes --only-binary=:all: -r requirements-ci.txt
+
+      - name: Mathematical and state-machine sanity tests
+        run: |
+          set -euo pipefail
+          make tests PYTHON=.venv/bin/python
+
+      - name: Reproduce finite model outputs
+        run: |
+          set -euo pipefail
+          make models PYTHON=.venv/bin/python
+
+      - name: Reproduce historical deep sweep (weekly and manual)
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: |
+          set -euo pipefail
+          .venv/bin/python scripts/check_models.py --full
+
+      - name: Check manuscript and figure integrity
+        run: |
+          set -euo pipefail
+          make publication PYTHON=.venv/bin/python
+
+      - name: Check public repository hygiene and workflow permissions
+        run: |
+          set -euo pipefail
+          make hygiene PYTHON=.venv/bin/python
+
+      - name: Verify public Zenodo record when DOI exists
+        run: |
+          set -euo pipefail
+          STATUS="$(python3 -c 'import json; print(json.load(open("publication/manifest.json"))["publication_status"])')"
+          if [ "$STATUS" != "published" ]; then
+            echo "Zenodo record is a draft; no published DOI is claimed."
+            exit 0
+          fi
+          curl --retry 4 --retry-delay 2 --retry-all-errors -fsSL             https://zenodo.org/api/records/23265287 -o /tmp/nightcrawler-zenodo.json
+          python3 - <<'PYCODE'
+          import json
+          m=json.load(open('publication/manifest.json'))
+          z=json.load(open('/tmp/nightcrawler-zenodo.json'))
+          assert z.get('doi')==m['doi'] or z.get('pids',{}).get('doi',{}).get('identifier')==m['doi']
+          meta=z['metadata']
+          assert meta['title']==m['title']
+          files=z['files']
+          assert any(f.get('key')==m['paper']['filename'] and f.get('checksum')=='md5:'+m['paper']['md5'] for f in files)
+          print('PASS: Zenodo public DOI and PDF checksum match')
+          PYCODE

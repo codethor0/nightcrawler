@@ -1,0 +1,34 @@
+digraph G {
+  graph [rankdir=TB, fontname="DejaVu Sans", fontsize=12, nodesep=0.28, ranksep=0.54, pad=0.2, bgcolor=white, newrank=true];
+  node  [fontname="DejaVu Sans", fontsize=13, shape=box, style=rounded, penwidth=1.1, margin="0.10,0.05"];
+  edge  [fontname="DejaVu Sans", fontsize=11, penwidth=1.0, arrowsize=0.6];
+
+  q [label=<<B>q</B>  origin task<BR/><FONT POINT-SIZE="10">terminated at t<SUB>0</SUB></FONT>>, shape=ellipse, style=bold];
+
+  subgraph cluster_S { label=<declared scope S  (σ(x) ∈ S)>; labeljust=l; style=dashed; fontsize=9;
+    a201 [label=<<B>201</B> commit<BR/><FONT POINT-SIZE="10">artifact</FONT>>];
+    a202 [label=<<B>202</B> scheduled workflow<BR/><FONT POINT-SIZE="10">trigger · γ: cron 02:00 daily</FONT>>];
+    i204 [label=<<B>204</B> runner identity<BR/><FONT POINT-SIZE="10">identity</FONT>>];
+    r205 [label=<<B>205</B> cloud credential<BR/><FONT POINT-SIZE="10">resource</FONT>>];
+    f206 [label=<<B>206</B> prohibited deployment<BR/><FONT POINT-SIZE="10">f ∈ F<SUP>−</SUP></FONT>>, shape=doubleoctagon, style=""];
+    t208 [label=<<B>208</B> webhook subscription<BR/><FONT POINT-SIZE="10">trigger · γ: push event</FONT>>];
+    p210 [label=<<B>210</B> shared deploy policy<BR/><FONT POINT-SIZE="10">mutated by q · treated as artifact</FONT>>];
+    u209 [label=<<B>209</B> job template<BR/><FONT POINT-SIZE="10">authorship candidate U(q)</FONT>>, style="rounded,dashed"];
+  }
+  x207 [label=<<B>207</B> queue copy<BR/><FONT POINT-SIZE="10">outbound delivery outside S</FONT>>, style="rounded,dotted"];
+
+  q -> a201 [label="creates · B"];
+  a201 -> a202 [label="creates · B"];
+  a202 -> i204 [label=<runs-as · C<SUB>1</SUB>>];
+  i204 -> r205 [label="delegates · B"];
+  r205 -> f206 [label="activates · B"];
+  q -> t208 [label="creates · D"];
+  t208 -> a202 [label="invokes · C1"];
+  q -> p210 [label="mutates · A"];
+  p210 -> f206 [label="permits · B", style=dashed];
+  u209 -> i204 [label="runs-as · C2", style=dashed];
+  a202 -> x207 [label="delivers · C1 (C7)", style=bold];
+
+  {rank=same; a201; t208; p210}
+  {rank=same; a202; u209}
+}

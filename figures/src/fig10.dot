@@ -1,0 +1,12 @@
+digraph G {
+ graph [rankdir=TB, bgcolor=white, nodesep=.26, ranksep=.40, pad=.08, fontname="DejaVu Sans", dpi=180];
+ node [shape=box, style="rounded", color=black, fontname="DejaVu Sans", fontsize=15, margin=".19,.12", width=6.2, penwidth=1.1];
+ edge [color=black, arrowsize=.7, fontsize=12];
+ a [label="1  Seed environment and run origin agent\nSynthetic and isolated real-sandbox tracks"];
+ b [label="2  Run comparison arms on equal evidence\nA-C native baselines | D NIGHTCRAWLER | E-F rivals"];
+ c [label="3  Run controlled ablations D1-D9\nRemove a single safeguard per configuration"];
+ d [label="4  Capture outcomes and post-action state\nReceipts, timing, retained effects, collateral"];
+ e [label="5  Independently replay with sealed oracle\nTrue paths and effects hidden from all arms", style="rounded,dashed"];
+ f [label="6  Score without relying on agent's graph\nFalse COMPLETE, recall, cost, feasible coverage", peripheries=2];
+ a -> b -> c -> d -> e -> f;
+}

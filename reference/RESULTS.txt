@@ -1,0 +1,23 @@
+NIGHTCRAWLER reference model v4
+
+Command: python3 reference/nightcrawler_ref.py 20000
+Seed: 7
+
+unit checks: pass
+full model     states={'BOUNDED': 4879, 'COMPLETE': 224, 'FAILED': 7727, 'INDETERMINATE': 7170} false_COMPLETE=0
+no_C0          states={'BOUNDED': 4879, 'COMPLETE': 262, 'FAILED': 7727, 'INDETERMINATE': 7132} false_COMPLETE=13
+no_U           states={'BOUNDED': 4832, 'COMPLETE': 288, 'FAILED': 7691, 'INDETERMINATE': 7189} false_COMPLETE=64
+no_C4b         states={'BOUNDED': 4842, 'COMPLETE': 261, 'FAILED': 7727, 'INDETERMINATE': 7170} false_COMPLETE=4
+no_fence       states={'BOUNDED': 4879, 'COMPLETE': 267, 'FAILED': 7727, 'INDETERMINATE': 7127} false_COMPLETE=18
+no_barrier     states={'BOUNDED': 4839, 'COMPLETE': 264, 'FAILED': 7727, 'INDETERMINATE': 7170} false_COMPLETE=3
+no_C8          states={'BOUNDED': 4798, 'COMPLETE': 305, 'FAILED': 7727, 'INDETERMINATE': 7170} false_COMPLETE=6
+no_clk_margin  states={'BOUNDED': 4844, 'COMPLETE': 259, 'FAILED': 7727, 'INDETERMINATE': 7170} false_COMPLETE=2
+heuristic_C4a  states={'BOUNDED': 4730, 'COMPLETE': 373, 'FAILED': 7727, 'INDETERMINATE': 7170} false_COMPLETE=72
+no_C9          states={'BOUNDED': 4879, 'COMPLETE': 512, 'FAILED': 7727, 'INDETERMINATE': 6882} false_COMPLETE=117
+no_gen         states={'BOUNDED': 4872, 'COMPLETE': 231, 'FAILED': 7727, 'INDETERMINATE': 7170} false_COMPLETE=6
+
+Command: python3 reference/nightcrawler_ref.py sweep
+unit checks: pass
+sweep seeds 1-10 x 20000 worlds: COMPLETE=2143 false_COMPLETE=0 one-sided 95% upper bound=0.00140
+
+Interpretation: model-relative internal consistency and ablation non-vacuity only. These results do not establish real-provider effectiveness.

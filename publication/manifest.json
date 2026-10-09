@@ -1,0 +1,27 @@
+{
+  "schema": "nightcrawler.publication-manifest.v1",
+  "publication_status": "draft",
+  "record_id": 23265287,
+  "doi": null,
+  "title": "NIGHTCRAWLER: Temporal Causal Closure for Persistent and Deferred Effects of Autonomous AI Agents",
+  "subtitle": "Temporal Causal Closure for Persistent and Deferred Effects of Autonomous AI Agents",
+  "author": "Thor Thor",
+  "orcid": "0009-0001-6573-385X",
+  "publication_date": "2026-10-09",
+  "resource_type": "preprint",
+  "access": "open-on-publication",
+  "paper_license": "CC-BY-4.0",
+  "code_license": "MIT",
+  "paper": {
+    "filename": "NIGHTCRAWLER_Research_Paper.pdf",
+    "bytes": 1915625,
+    "sha256": "cc43b6310fcac3bee8f3df9f746b29940b314ad75c73efa1ce7fa3c65f732448",
+    "md5": "2d6e208550953286a3119c67377b65f2"
+  },
+  "manuscript_sha256": "a3159463ad8d4c74c1923486bef5c2848b187e0e84a9eca943d065f777014e27",
+  "limitations": [
+    "Model-relative tests only",
+    "No production provider validation",
+    "No mechanically checked proof"
+  ]
+}
