@@ -13,8 +13,8 @@ permissions:
   contents: read
 
 concurrency:
-  group: reproducibility-${{ github.ref }}
-  cancel-in-progress: true
+  group: reproducibility-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   verify:
@@ -62,20 +62,4 @@ jobs:
       - name: Verify public Zenodo record when DOI exists
         run: |
           set -euo pipefail
-          STATUS="$(python3 -c 'import json; print(json.load(open("publication/manifest.json"))["publication_status"])')"
-          if [ "$STATUS" != "published" ]; then
-            echo "Zenodo record is a draft; no published DOI is claimed."
-            exit 0
-          fi
-          curl --retry 4 --retry-delay 2 --retry-all-errors -fsSL             https://zenodo.org/api/records/23265287 -o /tmp/nightcrawler-zenodo.json
-          python3 - <<'PYCODE'
-          import json
-          m=json.load(open('publication/manifest.json'))
-          z=json.load(open('/tmp/nightcrawler-zenodo.json'))
-          assert z.get('doi')==m['doi'] or z.get('pids',{}).get('doi',{}).get('identifier')==m['doi']
-          meta=z['metadata']
-          assert meta['title']==m['title']
-          files=z['files']
-          assert any(f.get('key')==m['paper']['filename'] and f.get('checksum')=='md5:'+m['paper']['md5'] for f in files)
-          print('PASS: Zenodo public DOI and PDF checksum match')
-          PYCODE
+          python3 scripts/check_zenodo.py
