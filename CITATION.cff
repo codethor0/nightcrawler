@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-message: "Please cite the preprint; the Zenodo DOI will be added after its public registration."
+message: "Please cite the open-access NIGHTCRAWLER preprint using the Zenodo DOI."
 title: "NIGHTCRAWLER: Research Artifacts and Reproducibility"
 type: software
 authors:
@@ -25,3 +25,4 @@ preferred-citation:
   year: 2026
   month: 10
   day: 9
+  doi: "10.5281/zenodo.23265287"

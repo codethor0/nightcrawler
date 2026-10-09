@@ -1,6 +1,7 @@
 # NIGHTCRAWLER
 
 [![Reproducibility](https://github.com/codethor0/nightcrawler/actions/workflows/reproducibility.yml/badge.svg?branch=main)](https://github.com/codethor0/nightcrawler/actions/workflows/reproducibility.yml)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23265287.svg)](https://doi.org/10.5281/zenodo.23265287)
 [![Paper license](https://img.shields.io/badge/paper-CC%20BY%204.0-lightgrey.svg)](LICENSE-PAPER.md)
 [![Code license](https://img.shields.io/badge/code-MIT-blue.svg)](LICENSE-CODE)
 [![ORCID](https://img.shields.io/badge/ORCID-0009--0001--6573--385X-A6CE39?logo=orcid&logoColor=white)](https://orcid.org/0009-0001-6573-385X)
@@ -21,7 +22,7 @@ This repository accompanies an independently authored cybersecurity research pre
 
 ## Publication status
 
-The paper has been uploaded to **Zenodo draft record 23265287** and is awaiting public publication. **No DOI is asserted until Zenodo publishes the record.** The PDF in this repository is byte-identical to the file uploaded to that draft; its SHA-256 and MD5 digests are fixed in [`publication/manifest.json`](publication/manifest.json).
+Version **v1** of the open-access preprint was published on **October 9, 2026**: [DOI: 10.5281/zenodo.23265287](https://doi.org/10.5281/zenodo.23265287). The PDF in this repository is byte-identical to the published Zenodo file; its SHA-256 and MD5 digests are fixed in [`publication/manifest.json`](publication/manifest.json).
 
 The Zenodo release, GitHub repository visibility, DOI citation, and any future software release are deliberately separate steps. CI does not create or publish Zenodo records.
 
@@ -114,7 +115,7 @@ The reproducibility workflow runs on pushes, pull requests, manual dispatch, and
 | `figures/src/` | Reproducible source for all eleven figures | CC BY 4.0 |
 | `reference/` | Finite reference model, independent targeted checker, captured outputs | MIT |
 | `tests/`, `scripts/` | Reproducibility and integrity verification | MIT |
-| `publication/` | Draft-state identity and exact hashes for research artifacts | Metadata |
+| `publication/` | Published DOI, release metadata, and exact hashes for research artifacts | Metadata |
 | `.github/workflows/` | Read-only GitHub Actions workflow | MIT |
 
 ## Security and limitations
@@ -123,6 +124,6 @@ The repository contains no live credentials, provider tenants, private inventor 
 
 ## Publication and citation
 
-The archive is being prepared for an open-access Zenodo preprint. Until the DOI has been registered, use [`CITATION.cff`](CITATION.cff) for author/title metadata without inventing a DOI. Once published, the live Zenodo DOI will be added to the citation, repository homepage, and publication manifest through a checked pull request.
+The open-access **v1 research preprint** is published on Zenodo: [10.5281/zenodo.23265287](https://doi.org/10.5281/zenodo.23265287). For citation details, use [`CITATION.cff`](CITATION.cff). Paper and code licensing remain separate, and future revisions will be versioned independently.
 
 Paper and figures: [CC BY 4.0](LICENSE-PAPER.md). Reference code, scripts, and tests: [MIT](LICENSE-CODE).
