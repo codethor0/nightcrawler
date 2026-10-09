@@ -18,6 +18,28 @@ def lines(s):
             ln.startswith('full model ') or ln.startswith('no_') or
             ln.startswith('heuristic_C4a')]
 
+def frozen_20000_lines(captured: str) -> list[str]:
+    """Parse only the seed-7 20,000-world run, not the subsequent sweep.
+
+    RESULTS.txt preserves both independent historical commands. Each command
+    prints `unit checks: pass`; counting the entire file adds a false 13th row.
+    Reject missing, duplicated, or reordered command markers rather than
+    accidentally accepting a partial historical capture.
+    """
+    historical_command = 'Command: python3 reference/nightcrawler_ref.py 20000'
+    sweep_command = 'Command: python3 reference/nightcrawler_ref.py sweep'
+    assert captured.count(historical_command) == 1, 'historical command marker must occur once'
+    assert captured.count(sweep_command) == 1, 'sweep command marker must occur once'
+    _, _, following = captured.partition(historical_command)
+    historical, boundary, _ = following.partition(sweep_command)
+    assert boundary, '20,000-world capture must precede separate sweep'
+    assert historical.lstrip().startswith('Seed: 7'), 'historical seed metadata changed'
+    result = lines(historical)
+    assert len(result) == 12, '20,000-world captured output malformed'
+    assert result[0] == 'unit checks: pass', 'historical unit-check marker changed'
+    assert result[1].startswith('full model ') and result[1].endswith('false_COMPLETE=0'), 'historical full model status changed'
+    return result
+
 def main():
     expected=(ROOT/'reference/TWO_PHASE_RESULTS.txt').read_text()
     observed=run('two_phase_checks.py')
@@ -35,9 +57,9 @@ def main():
     if '--full' in sys.argv:
         full=run('nightcrawler_ref.py','20000')
         captured=(ROOT/'reference/RESULTS.txt').read_text()
-        expected_lines=lines(captured)
+        expected_lines=frozen_20000_lines(captured)
         actual_lines=lines(full)
-        assert len(expected_lines)==12, '20,000-world captured output malformed'
+        assert len(actual_lines)==12, 'generated 20,000-world output malformed'
         assert actual_lines==expected_lines, '20,000-world historical output drift'
         ablations=[int(x.rsplit('false_COMPLETE=',1)[1]) for x in actual_lines
                   if 'false_COMPLETE=' in x and not x.startswith('full model ')]
