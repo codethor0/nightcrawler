@@ -127,3 +127,7 @@ The repository contains no live credentials, provider tenants, private inventor 
 The open-access **v1 research preprint** is published on Zenodo: [10.5281/zenodo.23265287](https://doi.org/10.5281/zenodo.23265287). For citation details, use [`CITATION.cff`](CITATION.cff). Paper and code licensing remain separate, and future revisions will be versioned independently.
 
 Paper and figures: [CC BY 4.0](LICENSE-PAPER.md). Reference code, scripts, and tests: [MIT](LICENSE-CODE).
+
+## Support
+
+If this research is useful to you, you can support continued independent work through [GitHub Sponsors](https://github.com/sponsors/codethor0).
